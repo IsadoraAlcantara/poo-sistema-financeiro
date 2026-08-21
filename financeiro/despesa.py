@@ -1,10 +1,14 @@
 from financeiro.lancamento import Lancamento
+from financeiro.categoriaDespesa import CategoriaDespesa
 
 
 class Despesa(Lancamento):
 
-    def __init__(self, categoria: CategoriaDespesa, valor, date) -> None:
+    def __init__(self, categoria: CategoriaDespesa, valor: int, date: str) -> None:
         super().__init__(categoria, valor, date)
+
+    def impacto_no_saldo(self) -> int:
+        return -self.valor
 
     def alterar_valor(self, novo_valor) -> None:
         if novo_valor <= 0:
