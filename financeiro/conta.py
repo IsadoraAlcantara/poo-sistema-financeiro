@@ -1,5 +1,5 @@
 from financeiro.lancamento import Lancamento
-from financeiro.categoriaDespesa import Categoria, NomeCategoriaDespesa
+from financeiro.categoriaDespesa import CategoriaDespesa, NomeCategoriaDespesa, Categoria
 from financeiro.despesa import Despesa
 
 
@@ -21,6 +21,12 @@ class Conta:
     def calcular_total_lancamentos_por_categoria(self, categoria_escolhida: Categoria) -> int:
         lancamentos_filtados = self.listar_lancamento_por_categoria(categoria_escolhida)
         return sum(i.impacto_no_saldo() for i in lancamentos_filtados)
+
+    def excedeu_gasto_max(self, categoria_escolhida) -> bool:
+        if not isinstance(categoria_escolhida, CategoriaDespesa):
+            raise ValueError("Essa categoria não possui gasto máximo")
+        total_gasto = -self.calcular_total_lancamentos_por_categoria(categoria_escolhida)
+        return categoria_escolhida.gasto_max < total_gasto
 
 
 if __name__ == "__main__":
@@ -48,3 +54,4 @@ if __name__ == "__main__":
 
     print(f"Valor total conta: {conta.calcular_total_lancamentos()}")
     print(f"Valor total por categoria: {conta.calcular_total_lancamentos_por_categoria(cat_alimentacao)}")
+    print(f"Excedeu o gasto máximo? {conta.excedeu_gasto_max(cat_alimentacao)}")

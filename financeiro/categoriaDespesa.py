@@ -15,7 +15,7 @@ class NomeCategoriaDespesa:
 class CategoriaDespesa(Categoria):
 
     def __init__(self, nome: NomeCategoriaDespesa, gasto_max: int):
-        super().__init__(nome)
+        super().__init__(nome) 
         if gasto_max <= 0:
             raise ValueError("O gasto máximo de uma categoria deve ser maior que zero")
         self.gasto_max = gasto_max
