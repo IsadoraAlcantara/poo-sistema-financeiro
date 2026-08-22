@@ -9,7 +9,7 @@ class NomeCategoriaReceita:
 
 class CategoriaReceita(Categoria):
 
-    def __init__(self, nome: NomeCategoriaReceita):
+    def __init__(self, nome: NomeCategoriaReceita) -> None:
         super().__init__(nome)
 
     def possui_limite(self) -> bool:
