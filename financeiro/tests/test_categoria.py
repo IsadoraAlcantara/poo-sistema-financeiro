@@ -5,14 +5,20 @@ from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
 
 class TestCategoria:
 
-    def test_categoria_abstrata_e_heranca(self):
-        cat_alimentacao = CategoriaDespesa(
+    def setup_method(self) -> None:
+        self.cat_alimentacao = CategoriaDespesa(
             NomeCategoriaDespesa.ALIMENTACAO, gasto_max=500
         )
-        cat_receita = CategoriaReceita(NomeCategoriaReceita.SALARIO)
+        self.cat_salario = CategoriaReceita(NomeCategoriaReceita.SALARIO)
 
-        assert isinstance(cat_alimentacao, Categoria)
-        assert isinstance(cat_receita, Categoria)
+    def test_categoria_abstrata_e_heranca(self):
+        assert isinstance(self.cat_alimentacao, Categoria)
+        assert isinstance(self.cat_salario, Categoria)
 
-        assert cat_alimentacao.nome == NomeCategoriaDespesa.ALIMENTACAO
-        assert cat_receita.nome == NomeCategoriaReceita.SALARIO
+        assert self.cat_alimentacao.nome == NomeCategoriaDespesa.ALIMENTACAO
+        assert self.cat_alimentacao.gasto_max == 500
+        assert self.cat_salario.nome == NomeCategoriaReceita.SALARIO
+
+    def test_verifica_se_possui_limite(self):
+        assert self.cat_alimentacao.possui_limite()
+        assert self.cat_salario.possui_limite() == False

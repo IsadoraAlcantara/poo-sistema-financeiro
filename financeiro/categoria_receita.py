@@ -3,7 +3,8 @@ from financeiro.categoria import Categoria
 
 class NomeCategoriaReceita:
     SALARIO = "salario"
-    ALUGUEL_SALA = "aluguel_sala"
+    INVESTIMENTOS = "investimentos"
+    FREELANCER = "freelancer"
 
 
 class CategoriaReceita(Categoria):
@@ -12,4 +13,4 @@ class CategoriaReceita(Categoria):
         super().__init__(nome)
 
     def possui_limite(self) -> bool:
-        return True
+        return False

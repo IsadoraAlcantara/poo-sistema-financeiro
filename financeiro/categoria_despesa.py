@@ -40,3 +40,5 @@ if __name__ == "__main__":
 
     cat_lazer.alterar_gasto_max(500)
     print(f"Gasto máximo: {cat_lazer.gasto_max}")
+
+    print(cat_lazer.possui_limite())

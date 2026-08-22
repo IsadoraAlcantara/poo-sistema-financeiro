@@ -17,16 +17,16 @@ class TestConta:
         self.cat_salario = CategoriaReceita(nome=NomeCategoriaReceita.SALARIO)
         self.conta = Conta()
 
-    def test_conta_inicial_vazia(self):
+    def test_conta_inicial_vazia(self) -> None:
         assert self.conta.calcular_total_lancamentos() == 0
         assert len(self.conta.lancamentos) == 0
 
-    def test_adiciona_lancamento_a_listagem(self):
+    def test_adiciona_lancamento_a_listagem(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")
         self.conta.adicionar_lancamento(d1)
         assert len(self.conta.lancamentos) == 1
 
-    def test_calcula_saldo_total(self):
+    def test_calcula_saldo_total(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")
         r1 = Receita(self.cat_salario, 1200, "2026-08-21")
         self.conta.adicionar_lancamento(d1)
@@ -34,7 +34,7 @@ class TestConta:
 
         assert self.conta.calcular_total_lancamentos() == 800
 
-    def test_total_por_categoria(self):
+    def test_total_por_categoria(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")
         d2 = Despesa(self.cat_alimentacao, 200, "2026-08-20")
         self.conta.adicionar_lancamento(d1)
@@ -45,7 +45,7 @@ class TestConta:
             == -600
         )
 
-    def test_listagem_por_categoria(self):
+    def test_listagem_por_categoria(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")
         d2 = Despesa(self.cat_internet, 200, "2026-08-20")
         self.conta.adicionar_lancamento(d1)
@@ -59,13 +59,13 @@ class TestConta:
         assert d1 in lancamentos_alimentacao
         assert d2 not in lancamentos_alimentacao
 
-    def test_categoria_vazia(self):
+    def test_categoria_vazia(self) -> None:
         assert self.conta.listar_lancamento_por_categoria(self.cat_internet) == []
         assert (
             self.conta.calcular_total_lancamentos_por_categoria(self.cat_internet) == 0
         )
 
-    def test_excedeu_gasto_max(self):
+    def test_excedeu_gasto_max(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 300, "2026-08-21")
         self.conta.adicionar_lancamento(d1)
         assert self.conta.excedeu_gasto_max(self.cat_alimentacao) is False
@@ -74,7 +74,7 @@ class TestConta:
         self.conta.adicionar_lancamento(d2)
         assert self.conta.excedeu_gasto_max(self.cat_alimentacao) is True
 
-    def test_excedeu_gasto_max_com_categoria_invalida(self):
+    def test_excedeu_gasto_max_com_categoria_invalida(self) -> None:
         try:
             self.conta.excedeu_gasto_max(self.cat_salario)
             assert False, "Deveria ter lançado exceção"
