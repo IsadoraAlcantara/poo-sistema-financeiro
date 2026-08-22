@@ -10,3 +10,7 @@ class Categoria(ABC):
         if novo_gasto_max <= 0:
             raise ValueError("O gasto máximo de uma categoria não pode ser negativo ou zero")
         self.gasto_max = novo_gasto_max
+
+    @abstractmethod
+    def possui_limite(self) -> bool:
+        pass
