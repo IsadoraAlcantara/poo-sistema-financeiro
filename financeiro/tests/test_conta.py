@@ -1,6 +1,6 @@
 from financeiro.conta import Conta
-from financeiro.categoriaDespesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoriaReceita import CategoriaReceita, NomeCategoriaReceita
+from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
+from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
 from financeiro.despesa import Despesa
 from financeiro.receita import Receita
 

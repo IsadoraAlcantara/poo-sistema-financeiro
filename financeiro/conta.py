@@ -1,5 +1,5 @@
 from financeiro.lancamento import Lancamento
-from financeiro.categoriaDespesa import CategoriaDespesa, NomeCategoriaDespesa, Categoria
+from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa, Categoria
 from financeiro.despesa import Despesa
 
 
@@ -31,9 +31,9 @@ class Conta:
 
 if __name__ == "__main__":
     from financeiro.despesa import Despesa
-    from financeiro.categoriaDespesa import CategoriaDespesa, NomeCategoriaDespesa
+    from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
     from financeiro.receita import Receita
-    from financeiro.categoriaReceita import CategoriaReceita, NomeCategoriaReceita
+    from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
 
     cat_alimentacao = CategoriaDespesa(nome=NomeCategoriaDespesa.ALIMENTACAO, gasto_max=500)
     cat_salario = CategoriaReceita(nome=NomeCategoriaReceita.SALARIO)

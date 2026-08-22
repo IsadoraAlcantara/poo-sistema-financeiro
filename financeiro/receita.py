@@ -1,5 +1,5 @@
 from financeiro.lancamento import Lancamento
-from financeiro.categoriaReceita import CategoriaReceita
+from financeiro.categoria_receita import CategoriaReceita
 
 
 class Receita(Lancamento):

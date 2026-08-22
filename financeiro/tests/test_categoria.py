@@ -1,6 +1,6 @@
 from financeiro.categoria import Categoria
-from financeiro.categoriaDespesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoriaReceita import CategoriaReceita, NomeCategoriaReceita
+from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
+from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
 
 
 class TestCategoria:

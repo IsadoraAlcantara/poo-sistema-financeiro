@@ -1,5 +1,5 @@
 from financeiro.lancamento import Lancamento
-from financeiro.categoriaDespesa import CategoriaDespesa
+from financeiro.categoria_despesa import CategoriaDespesa
 
 
 class Despesa(Lancamento):
