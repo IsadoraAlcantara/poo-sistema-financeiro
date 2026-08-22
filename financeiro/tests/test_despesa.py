@@ -1,6 +1,6 @@
 from financeiro.despesa import Despesa
 from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoria_receita import CategoriaReceita, CategoriaReceita
+from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
 
 class TestDespesa:
 
@@ -8,7 +8,7 @@ class TestDespesa:
     def setup_method(self) -> None:
         self.cat_alimentacao = CategoriaDespesa(nome=NomeCategoriaDespesa.ALIMENTACAO, gasto_max=500)
         self.cat_transporte = CategoriaDespesa(nome=NomeCategoriaDespesa.TRANSPORTE, gasto_max=500)
-        self.cat_salario = CategoriaReceita(nome=CategoriaReceita.SALARIO)
+        self.cat_salario = CategoriaReceita(nome=NomeCategoriaReceita.SALARIO)
 
     def test_cria_despesa(self):
         d1 = Despesa(self.cat_alimentacao, 300, "2026-08-20")
@@ -36,3 +36,7 @@ class TestDespesa:
 
     def test_categoria_invalida(self):
         try: 
+            Despesa(self.cat_salario, 300, "2026-08-20")
+            assert False, "Deveria ter lançado exceção"
+        except TypeError:
+            pass
