@@ -2,13 +2,12 @@ from financeiro.lancamento import Lancamento
 from financeiro.receita import Receita
 from financeiro.despesa import Despesa
 from financeiro.categoria import Categoria
-from financeiro.categoria_despesa import CategoriaDespesa
 
 
 class Fechamento:
 
-    def __init__(self, periodo: str, lancamentos: list[Lancamento]):
-        self.periodo = periodo
+    def __init__(self, data_fechamento: str, lancamentos: list[Lancamento]):
+        self.data_fechamento = data_fechamento
         self.lancamentos = list(lancamentos)
 
         self.total_receitas = sum(

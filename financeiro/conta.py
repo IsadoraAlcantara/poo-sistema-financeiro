@@ -42,7 +42,7 @@ class Conta:
         return categoria_escolhida.gasto_max < total_gasto
 
     def fechar_periodo(self, periodo: str) -> Fechamento:
-        fechamento = Fechamento(periodo=periodo, lancamentos=self.lancamentos)
+        fechamento = Fechamento(data_fechamento=periodo, lancamentos=self.lancamentos)
         self.lancamentos = []
         return fechamento
 
@@ -80,9 +80,8 @@ if __name__ == "__main__":
     )
     print(f"Excedeu o gasto máximo? {conta.excedeu_gasto_max(cat_alimentacao)}")
 
-    fechamento_agosto = conta.fechar_periodo("08/2026")
+    fechamento_agosto = conta.fechar_periodo("2026-08-01")
 
-    print(f"Período: {fechamento_agosto.periodo}")
     print(f"Receitas: R$ {fechamento_agosto.total_receitas}")
     print(f"Despesas: R$ {fechamento_agosto.total_despesas}")
     print(f"Saldo Final: R$ {fechamento_agosto.saldo_final}")
