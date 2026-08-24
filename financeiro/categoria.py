@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class Categoria(ABC):
 
-    def __init__(self, nome: str):
+    def __init__(self, nome: str) -> None:
         self.nome = nome
 
     @abstractmethod

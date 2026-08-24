@@ -6,7 +6,7 @@ from financeiro.categoria import Categoria
 
 class Fechamento:
 
-    def __init__(self, data_fechamento: str, lancamentos: list[Lancamento]):
+    def __init__(self, data_fechamento: str, lancamentos: list[Lancamento]) -> None:
         self.data_fechamento = data_fechamento
         self.lancamentos = list(lancamentos)
 

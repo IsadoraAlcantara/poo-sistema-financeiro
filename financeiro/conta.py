@@ -9,8 +9,7 @@ from financeiro.fechamento import Fechamento
 
 
 class Conta:
-
-    def __init__(self):
+    def __init__(self) -> None:
         self.lancamentos: list[Lancamento] = []
 
     def adicionar_lancamento(self, novo_lancamento: Lancamento) -> None:
