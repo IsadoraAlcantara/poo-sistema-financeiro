@@ -18,7 +18,7 @@ class Extrato:
             for i in fechamentos_totais
             if self.data_inicio <= i.data_fechamento <= self.data_fim
         ]
-        self.conciliacoes = list(conciliacoes) if conciliacoes else []  # REVER!!!!!!!!
+        self.conciliacoes = list(conciliacoes) if conciliacoes else []
 
     @property
     def total_lancamentos(self) -> int:

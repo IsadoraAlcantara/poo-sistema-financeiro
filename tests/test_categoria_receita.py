@@ -11,5 +11,3 @@ class TestCategoriaReceita:
     def test_categoria_receita_herda_de_categoria(self) -> None:
         cat = CategoriaReceita(NomeCategoriaReceita.INVESTIMENTOS)
         assert isinstance(cat, Categoria)
-
-    # SERÁ Q É NECESSÁRIO TER QUE VALIDAR SE HERADA DE CATEGORIA?
