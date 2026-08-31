@@ -22,7 +22,7 @@ A Conciliacao foi implementada como uma classe própria, pois dessa maneira conc
 
 #### Cenário 1: Sem lançamentos no período
 
-Caso a busca por intervalo de datas não encontre nenhum fechamento correspondente, o extrato é gerado com valores zerados. Foi feito dessa maneira para que caso o usuário não faça nenhum lançamento em determinado período não fique um  histórico faltando.
+Caso a busca por intervalo de datas não encontre nenhum fechamento correspondente, o extrato é gerado com valores zerados. O sistema foi desenvolvido dessa maneira para que, se o usuário não realizar nenhum lançamento em determinado período, não haja lacunas no histórico.
 
 #### Cenário 2: Conciliação com divergência
 * **Na classe Conciliacao:** Ao identificar diferença entre os totais, a classe interrompe a execução do código e gera um erro.
