@@ -1,7 +1,5 @@
 from financeiro.categoria import Categoria
-from financeiro.despesa import Despesa
 from financeiro.lancamento import Lancamento
-from financeiro.receita import Receita
 
 
 class Fechamento:
@@ -10,19 +8,20 @@ class Fechamento:
         self.data_fechamento = data_fechamento
         self.lancamentos = list(lancamentos)
 
-        self.total_receitas = sum(
-            l.valor for l in self.lancamentos if isinstance(l, Receita)
-        )
-        self.total_despesas = sum(
-            l.valor for l in self.lancamentos if isinstance(l, Despesa)
-        )
-        self.saldo_final = self.total_receitas - self.total_despesas
+    @property
+    def saldo_final_consolidado(self) -> float:
+        return sum(l.valor for l in self.lancamentos)
 
-    def calcular_saldo_consolidado(self) -> int:
-        return sum(i.impacto_no_saldo() for i in self.lancamentos)
+    @property
+    def total_receitas(self) -> float:
+        return sum(l.valor for l in self.lancamentos if l.valor > 0)
+
+    @property
+    def total_despesas(self) -> float:
+        return sum(l.valor for l in self.lancamentos if l.valor < 0)
 
     def calcular_total_por_categoria(self, categoria_escolhida: Categoria) -> int:
         lancamentos_filtrados = [
             i for i in self.lancamentos if i.categoria == categoria_escolhida
         ]
-        return sum(i.impacto_no_saldo() for i in lancamentos_filtrados)
+        return sum(i.valor for i in lancamentos_filtrados)

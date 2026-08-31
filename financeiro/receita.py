@@ -11,7 +11,3 @@ class Receita(Lancamento):
 
         if valor <= 0:
             raise ValueError("O valor da receita deve ser maior que zero")
-
-
-    # def impacto_no_saldo(self) -> int:
-    #     return self.valor

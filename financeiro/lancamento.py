@@ -1,18 +1,12 @@
-from abc import ABC, abstractmethod
-
 from financeiro.categoria import Categoria
 
 
-class Lancamento(ABC):
+class Lancamento:
 
     def __init__(self, categoria: Categoria, valor: int, data: str) -> None:
         self.categoria = categoria
         self.valor = valor
         self.data = data
-
-    # @abstractmethod
-    # def impacto_no_saldo(self) -> None:
-    #     pass
 
     def alterar_valor(self, novo_valor) -> None:
         if novo_valor <= 0:

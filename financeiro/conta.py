@@ -86,4 +86,4 @@ if __name__ == "__main__":
 
     print(f"Receitas: R$ {fechamento_agosto.total_receitas}")
     print(f"Despesas: R$ {fechamento_agosto.total_despesas}")
-    print(f"Saldo Final: R$ {fechamento_agosto.saldo_final}")
+    print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado}")

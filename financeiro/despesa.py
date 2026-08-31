@@ -12,6 +12,3 @@ class Despesa(Lancamento):
         if valor <= 0:
             raise ValueError("O valor da despesa deve ser maior que zero")
         self.valor = -self.valor
-
-    # def impacto_no_saldo(self) -> int:
-    #     return -self.valor
