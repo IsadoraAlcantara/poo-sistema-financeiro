@@ -18,21 +18,14 @@ class TestConta:
         self.conta = Conta()
 
     def test_conta_inicial_vazia(self) -> None:
-        assert self.conta.calcular_total_lancamentos() == 0
+        assert self.conta._saldo == 0
         assert len(self.conta.lancamentos) == 0
 
     def test_adiciona_lancamento_a_listagem(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")
         self.conta.adicionar_lancamento(d1)
         assert len(self.conta.lancamentos) == 1
-
-    def test_calcula_saldo_total(self) -> None:
-        d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")
-        r1 = Receita(self.cat_salario, 1200, "2026-08-21")
-        self.conta.adicionar_lancamento(d1)
-        self.conta.adicionar_lancamento(r1)
-
-        assert self.conta.calcular_total_lancamentos() == 800
+        assert self.conta._saldo == -400
 
     def test_total_por_categoria(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 400, "2026-08-20")

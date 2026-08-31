@@ -15,10 +15,6 @@ class TestReceita:
         assert r1.valor == 300
         assert r1.data == "2026-08-20"
 
-    def test_impacto_no_saldo(self):
-        r1 = Receita(self.cat_investimentos, 300, "2026-08-20")
-        assert r1.impacto_no_saldo() == 300
-
     def test_receita_com_valor_nulo(self):
         try:
             Receita(self.cat_investimentos, 0, "2026-08-20")

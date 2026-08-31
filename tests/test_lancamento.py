@@ -12,7 +12,7 @@ class TestLancamento:
     def test_cria_lancamento(self) -> None:
         d1 = Despesa(self.cat_alimentacao, 300, "2026-08-20")
         assert d1.categoria == self.cat_alimentacao
-        assert d1.valor == 300
+        assert d1.valor == -300
         assert d1.data == "2026-08-20"
 
     def test_altetar_valor(self) -> None:

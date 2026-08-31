@@ -34,7 +34,7 @@ class Extrato:
 
     @property
     def saldo_final(self) -> int:
-        return self.total_receitas - self.total_despesas
+        return self.total_receitas + self.total_despesas
 
     def possui_conciliacao_pendente(self) -> bool:
         if not self.conciliacoes:

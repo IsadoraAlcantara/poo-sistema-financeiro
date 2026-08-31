@@ -13,12 +13,8 @@ class TestDespesa:
     def test_cria_despesa(self):
         d1 = Despesa(self.cat_alimentacao, 300, "2026-08-20")
         assert d1.categoria == self.cat_alimentacao
-        assert d1.valor == 300
+        assert d1.valor == -300
         assert d1.data == "2026-08-20"
-
-    def test_impacto_no_saldo(self):
-        d1 = Despesa(self.cat_alimentacao, 300, "2026-08-20")
-        assert d1.impacto_no_saldo() == -300
 
     def test_despesa_com_valor_nulo(self):
         try:

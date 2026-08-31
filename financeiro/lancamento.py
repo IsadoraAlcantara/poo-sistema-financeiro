@@ -10,9 +10,9 @@ class Lancamento(ABC):
         self.valor = valor
         self.data = data
 
-    @abstractmethod
-    def impacto_no_saldo(self) -> None:
-        pass
+    # @abstractmethod
+    # def impacto_no_saldo(self) -> None:
+    #     pass
 
     def alterar_valor(self, novo_valor) -> None:
         if novo_valor <= 0:

@@ -11,12 +11,15 @@ from financeiro.fechamento import Fechamento
 class Conta:
     def __init__(self) -> None:
         self.lancamentos: list[Lancamento] = []
+        self._saldo = 0
 
     def adicionar_lancamento(self, novo_lancamento: Lancamento) -> None:
         self.lancamentos.append(novo_lancamento)
+        self._saldo = sum(i.valor for i in self.lancamentos)
 
-    def calcular_total_lancamentos(self) -> int:
-        return sum(i.impacto_no_saldo() for i in self.lancamentos)
+    @property
+    def saldo(self):
+        return self._saldo
 
     def listar_lancamento_por_categoria(
         self, categoria_escolhida: Categoria
@@ -30,7 +33,7 @@ class Conta:
         self, categoria_escolhida: Categoria
     ) -> int:
         lancamentos_filtados = self.listar_lancamento_por_categoria(categoria_escolhida)
-        return sum(i.impacto_no_saldo() for i in lancamentos_filtados)
+        return sum(i.valor for i in lancamentos_filtados)
 
     def excedeu_gasto_max(self, categoria_escolhida) -> bool:
         if not isinstance(categoria_escolhida, CategoriaDespesa):
@@ -70,10 +73,10 @@ if __name__ == "__main__":
 
     for l in listaLancamentos:
         print(
-            f"Categoria: {l.categoria.nome}, Valor: {l.impacto_no_saldo()}, Data: {l.data}"
+            f"Categoria: {l.categoria.nome}, Valor: {l.valor}, Data: {l.data}"
         )
 
-    print(f"Valor total conta: {conta.calcular_total_lancamentos()}")
+    print(f"Saldo: {conta.saldo}")
     print(
         f"Valor total por categoria: {conta.calcular_total_lancamentos_por_categoria(cat_alimentacao)}"
     )

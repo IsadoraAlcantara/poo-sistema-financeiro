@@ -35,7 +35,7 @@ class TestExtrato:
         assert self.fechamento_julho not in extrato_agosto.fechamentos_filtrados
 
         assert extrato_agosto.total_receitas == 0
-        assert extrato_agosto.total_despesas == 150
+        assert extrato_agosto.total_despesas == -150
         assert extrato_agosto.saldo_final == -150
         assert extrato_agosto.total_lancamentos == 1
 

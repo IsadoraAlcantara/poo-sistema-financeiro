@@ -25,8 +25,8 @@ class TestConciliacaoBancaria:
 
         conciliador = Conciliacao(aplicacao.lancamentos, extrato_banco.lancamentos)
 
-        assert conciliador.total_origem() == 200
-        assert conciliador.total_destino() == 200
+        assert conciliador.total_origem() == -200
+        assert conciliador.total_destino() == -200
         assert conciliador.diferenca() == 0
         assert conciliador.validar() is True
 
