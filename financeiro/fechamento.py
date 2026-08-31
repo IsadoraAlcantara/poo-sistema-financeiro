@@ -1,7 +1,7 @@
+from financeiro.categoria import Categoria
+from financeiro.despesa import Despesa
 from financeiro.lancamento import Lancamento
 from financeiro.receita import Receita
-from financeiro.despesa import Despesa
-from financeiro.categoria import Categoria
 
 
 class Fechamento:

@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
+
 from financeiro.categoria import Categoria
+
 
 class Lancamento(ABC):
 

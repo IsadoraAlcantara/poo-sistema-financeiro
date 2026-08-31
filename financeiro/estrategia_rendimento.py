@@ -1,5 +1,6 @@
 
 from abc import ABC, abstractmethod
+from datetime import date
 
 
 class EstrategiaRendimento(ABC):
@@ -10,7 +11,7 @@ class EstrategiaRendimento(ABC):
 
 class CDB(EstrategiaRendimento):
 
-    def __init__(self, percentual: float, data_inicial: str, data_final: str) -> None:
+    def __init__(self, percentual: float, data_inicial: date, data_final: date) -> None:
         if not 0 <= percentual <= 100:
             raise ValueError("Percentual deve estar entre 0 e 100")
         self._percentual = percentual
