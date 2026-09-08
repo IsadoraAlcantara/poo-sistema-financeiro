@@ -14,8 +14,8 @@ class CDB(EstrategiaRendimento):
     def __init__(
         self, percentual: float, data_inicial: date, data_final: date, cdi_ano=float
     ) -> None:
-        if not 0 <= percentual:
-            raise ValueError("Percentual deve ser maior do que 100")
+        if percentual <= 0:
+            raise ValueError("Percentual deve ser maior do que 0")
         self._percentual = percentual
         if data_inicial > data_final:
             raise ValueError("A data inicial não pode ser posterior do que a data final")
@@ -45,7 +45,7 @@ class CDB(EstrategiaRendimento):
 
 class Poupanca(EstrategiaRendimento):
 
-    def __init__(self, selic_anual: float, data_inicial: date, data_final: date):
+    def __init__(self, selic_anual: float, data_inicial: date, data_final: date) -> None:
         self.selic_anual = selic_anual
         if data_inicial > data_final:
             raise ValueError("A data inicial não pode ser posterior do que a data final")
@@ -62,7 +62,7 @@ class Poupanca(EstrategiaRendimento):
         return meses
 
 
-    def calcular(self, valor: float):
+    def calcular(self, valor: float) -> float:
         selic_porcentagem = self.selic_anual / 100
         if ((selic_porcentagem) > 0.085):
             taxa_mes = 0.005
@@ -81,7 +81,7 @@ if __name__ == "__main__":
         percentual=100,
         data_inicial=date(2023, 10, 8),
         data_final=date(2024, 10, 8),
-        cdi_ano=100
+        cdi_ano=11.777
     )
 
     poupanca = Poupanca(
