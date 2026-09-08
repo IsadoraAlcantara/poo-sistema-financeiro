@@ -46,6 +46,8 @@ class CDB(EstrategiaRendimento):
 class Poupanca(EstrategiaRendimento):
 
     def __init__(self, selic_anual: float, data_inicial: date, data_final: date) -> None:
+        if selic_anual <= 0:
+            raise ValueError("O selic anual deve ser maior do que 0")
         self.selic_anual = selic_anual
         if data_inicial > data_final:
             raise ValueError("A data inicial não pode ser posterior do que a data final")
