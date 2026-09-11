@@ -1,5 +1,5 @@
 from datetime import date
-from financeiro.estrategia_rendimento import CDB, Poupanca
+from financeiro.estrategia_rendimento import CDB, Poupanca, JurosCompostos, JurosSimples
 
 
 class TestCDB:
@@ -93,4 +93,78 @@ class TestPoupanca:
                 2,
             )
             == 1056.00
+        )
+
+
+class TestJurosCompostos:
+
+    def test_instancia_com_percentual_zerado(self) -> None:
+        try:
+            JurosCompostos(
+                taxa_juros_mensal=0,
+            )
+            assert False, "Deveria ter lançado exceção"
+        except ValueError:
+            pass
+
+    def test_contar_meses_decorridos(self) -> None:
+        carteira = JurosCompostos(
+            taxa_juros_mensal=1,
+        )
+        assert (
+            carteira.meses_decorridos(
+                inicio=date(2025, 10, 8),
+                fim=date(2026, 10, 8),
+            )
+            == 12
+        )
+
+    def test_calcular(self) -> None:
+        carteira = JurosCompostos(
+            taxa_juros_mensal=1,
+        )
+        assert (
+            round(
+                carteira.calcular(
+                    30000, inicio=date(2019, 8, 8), fim=date(2019, 11, 8)
+                ),
+                2,
+            )
+            == 30909.03
+        )
+
+
+class TestJurosSimples:
+
+    def test_instancia_com_percentual_zerado(self) -> None:
+        try:
+            JurosSimples(
+                taxa_juros_mensal=0,
+            )
+            assert False, "Deveria ter lançado exceção"
+        except ValueError:
+            pass
+
+    def test_contar_meses_decorridos(self) -> None:
+        carteira = JurosSimples(
+            taxa_juros_mensal=1,
+        )
+        assert (
+            carteira.meses_decorridos(
+                inicio=date(2025, 10, 8),
+                fim=date(2026, 10, 8),
+            )
+            == 12
+        )
+
+    def test_calcular(self) -> None:
+        carteira = JurosSimples(
+            taxa_juros_mensal=1,
+        )
+        assert (
+            round(
+                carteira.calcular(1200, inicio=date(2019, 8, 8), fim=date(2020, 11, 8)),
+                2,
+            )
+            == 15060
         )

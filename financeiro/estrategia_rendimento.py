@@ -63,21 +63,74 @@ class Poupanca(EstrategiaRendimento):
         return valor_final
 
 
+class JurosCompostos(EstrategiaRendimento):
+
+    def __init__(self, taxa_juros_mensal: float):
+        if taxa_juros_mensal <= 0:
+            raise ValueError("A taxa de juro deve ser maior do que zero")
+        self.taxa_juros_mensal = taxa_juros_mensal
+
+    def meses_decorridos(self, inicio: date, fim: date) -> float:
+        meses = (fim.year - inicio.year) * 12 + (fim.month - inicio.month)
+
+        if fim.day < inicio.day:
+            meses -= 1
+
+        return meses
+
+    def calcular(self, valor: float, inicio: date, fim: date) -> float:
+        meses = self.meses_decorridos(inicio=inicio, fim=fim)
+        montante = valor * (1 + (self.taxa_juros_mensal / 100)) ** meses
+        return montante
+
+
+class JurosSimples(EstrategiaRendimento):
+
+    def __init__(self, taxa_juros_mensal: float):
+        if taxa_juros_mensal <= 0:
+            raise ValueError("A taxa de juro deve ser maior do que zero")
+        self.taxa_juros_mensal = taxa_juros_mensal
+
+    def meses_decorridos(self, inicio: date, fim: date) -> float:
+        meses = (fim.year - inicio.year) * 12 + (fim.month - inicio.month)
+
+        if fim.day < inicio.day:
+            meses -= 1
+
+        return meses
+
+    def calcular(self, valor: float, inicio: date, fim: date) -> float:
+        meses = self.meses_decorridos(inicio=inicio, fim=fim)
+        montante = valor * (1 + (self.taxa_juros_mensal / 100) * meses)
+        return montante
+
+
 if __name__ == "__main__":
     from financeiro.estrategia_rendimento import EstrategiaRendimento
 
     carteira = CDB(
         percentual=100,
-        data_inicial=date(2023, 10, 8),
-        data_final=date(2024, 10, 8),
         cdi_ano=11.777,
     )
 
     poupanca = Poupanca(
         selic_anual=7.5,
-        data_inicial=date(2019, 10, 8),
-        data_final=date(2024, 10, 8),
     )
-    print(carteira.contar_dias_uteis())
-    print(f"Valor corrigido: {round(carteira.calcular(1000), 2)}")
-    print(f"Valor poupança: {poupanca.calcular(1000)}")
+
+    juros_compostos = JurosCompostos(taxa_juros_mensal=1)
+    juros_simples = JurosSimples(taxa_juros_mensal=2)
+
+    print(
+        f"Valor corrigido: {round(carteira.calcular(1000, inicio=date(2023, 10, 8), fim=date(2024, 10, 8)), 2)}"
+    )
+    print(f"Valor poupança: {poupanca.calcular(1000, inicio=date(2019, 10, 8),
+        fim=date(2024, 10, 8))}")
+    print(
+        f"Valor juros compostos: {juros_compostos.calcular(30000, inicio=date(2019, 8, 8),
+        fim=date(2019, 11, 8))}"
+    )
+    print(f"Valor juros simples: {juros_simples.calcular(1200, inicio=date(2019, 8, 8),
+        fim=date(2020, 11, 8))}")
+    print(
+        juros_compostos.meses_decorridos(inicio=date(2019, 8, 8), fim=date(2020, 11, 8))
+    )
