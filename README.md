@@ -28,10 +28,14 @@ Caso a busca por intervalo de datas não encontre nenhum fechamento corresponden
 * **Na classe Conciliacao:** Ao identificar diferença entre os totais, a classe interrompe a execução do código e gera um erro.
 * **No classe Extrato:** O extrato verifica se existe pendências e retorna True ou False, sinalizando a existência de divergências entre os totais sem parar a execução.
 
+---
+
 ### 4. Uma Aplicacao guarda a estratégia como atributo, ou ela é passada como parâmetro na hora de calcular o rendimento?
 
 **Resposta:**  
 A aplicação guarda a estratégia como atributo, pois a estratégia é algo intrínseco de uma aplicação. Apenas faz sentido uma aplicação financeira existir se ela possuir uma estratégia vinculada.
+
+---
 
 ### 5. As interfaces são separadas ou são mesmo conceito com nomes diferentes?
 
