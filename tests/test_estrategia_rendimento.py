@@ -1,5 +1,11 @@
 from datetime import date
-from financeiro.estrategia_rendimento import CDB, Poupanca, JurosCompostos, JurosSimples
+from financeiro.estrategia_rendimento import (
+    CDB,
+    Poupanca,
+    JurosCompostos,
+    JurosSimples,
+    IPCA,
+)
 
 
 class TestCDB:
@@ -159,12 +165,48 @@ class TestJurosSimples:
 
     def test_calcular(self) -> None:
         carteira = JurosSimples(
-            taxa_juros_mensal=1,
+            taxa_juros_mensal=2,
         )
         assert (
             round(
-                carteira.calcular(1200, inicio=date(2019, 8, 8), fim=date(2020, 11, 8)),
+                carteira.calcular(1200, inicio=date(2019, 1, 1), fim=date(2020, 4, 1)),
                 2,
             )
-            == 15060
+            == 1560
+        )
+
+
+class TestCDB:
+
+    def test_instancia_com_taxa_fixa_anual_zerada(self) -> None:
+        try:
+            IPCA(taxa_fixa_anual=0, ipca_anual=4)
+            assert False, "Deveria ter lançado exceção"
+        except ValueError:
+            pass
+
+    def test_instancia_com_ipca_anual_zerado(self) -> None:
+        try:
+            IPCA(taxa_fixa_anual=6, ipca_anual=0)
+            assert False, "Deveria ter lançado exceção"
+        except ValueError:
+            pass
+
+    def test_contar_dias_uteis(self) -> None:
+        ipca = IPCA(taxa_fixa_anual=6, ipca_anual=4)
+        assert (
+            ipca.contar_dias_uteis(
+                inicio=date(2025, 10, 8),
+                fim=date(2026, 10, 8),
+            )
+            == 261
+        )
+
+    def test_calcular(self) -> None:
+        ipca = IPCA(taxa_fixa_anual=6, ipca_anual=4)
+        assert (
+            round(
+                ipca.calcular(1000, inicio=date(2023, 1, 2), fim=date(2023, 12, 20)), 2
+            )
+            == 1102.4
         )

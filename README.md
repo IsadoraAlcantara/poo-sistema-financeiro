@@ -32,3 +32,8 @@ Caso a busca por intervalo de datas não encontre nenhum fechamento corresponden
 
 **Resposta:**  
 A aplicação guarda a estratégia como atributo, pois a estratégia é algo intrínseco de uma aplicação. Apenas faz sentido uma aplicação financeira existir se ela possuir uma estratégia vinculada.
+
+### 5. As interfaces são separadas ou são mesmo conceito com nomes diferentes?
+
+**Resposta:**  
+As interfaces criadas para aplicações financeiras possuem a mesma estratégia, pois conceitualmente executam as mesmas funcionalidades.
