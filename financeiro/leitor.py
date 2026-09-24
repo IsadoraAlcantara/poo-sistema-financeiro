@@ -1,0 +1,3 @@
+class Leitor:
+
+    def ler()
