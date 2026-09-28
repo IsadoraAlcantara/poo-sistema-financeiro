@@ -6,12 +6,15 @@ from financeiro.categoria_despesa import (
 )
 from financeiro.despesa import Despesa
 from financeiro.fechamento import Fechamento
+from financeiro.leitor import Leitor
+from financeiro.opcoes_formato_extrato import OpcoesFormatoExtrato
 
 
 class Conta:
     def __init__(self) -> None:
         self.lancamentos: list[Lancamento] = []
         self._saldo = 0
+        self._leitor = Leitor()
 
     def adicionar_lancamento(self, novo_lancamento: Lancamento) -> None:
         self.lancamentos.append(novo_lancamento)
@@ -47,6 +50,10 @@ class Conta:
         fechamento = Fechamento(data_fechamento=periodo, lancamentos=self.lancamentos)
         self.lancamentos = []
         return fechamento
+
+    def importar_arquivo(self, caminho_arquivo: str, formato: OpcoesFormatoExtrato = OpcoesFormatoExtrato.OFX, **dados) -> None:
+        self._importacao = self._leitor.ler(caminho_arquivo, formato, **dados)
+        return self._importacao.ler_extrato()
 
 
 if __name__ == "__main__":
@@ -87,3 +94,4 @@ if __name__ == "__main__":
     print(f"Receitas: R$ {fechamento_agosto.total_receitas}")
     print(f"Despesas: R$ {fechamento_agosto.total_despesas}")
     print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado}")
+    print(f"{conta.importar_arquivo('caminho/para/arquivo.ofx', OpcoesFormatoExtrato.OFX)}")

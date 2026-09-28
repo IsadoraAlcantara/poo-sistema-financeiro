@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from financeiro.extrato import Extrato
 
 
-class LeitorExtrato(ABC):
+class FormatoExtrato(ABC):
 
     def __init__(
         self,
@@ -10,18 +10,18 @@ class LeitorExtrato(ABC):
     ) -> None:
         self._caminho_arquivo = caminho_arquivo
 
-    def ler_extrato(self) -> list[Extrato]:
+    def ler_extrato(self) -> None:
         pass
 
 
-class LeitorOFX(LeitorExtrato):
+class FormatoOFX(FormatoExtrato):
 
     def __init__(self, caminho_arquivo: str, fitid_validacao: bool = True) -> None:
         super().__init__(caminho_arquivo)
         self._fitid_validacao = fitid_validacao
 
-    def ler_extrato(self) -> list[Extrato]:
-        print(f"Lendo e parseando tags OFX de: {self._caminho_arquivo}")
+    def ler_extrato(self) -> None:
+        print(f"Lendo e parseando tags OFX de: {self._caminho_arquivo}, {'com' if self._fitid_validacao else 'sem'} validação de FITID")
         # IMPLEMENTAR LER EXTRATO MAIS TARDE
         # return [
         #     Extrato(date.today(), "Supermercado (OFX)", -150.00),
@@ -29,7 +29,7 @@ class LeitorOFX(LeitorExtrato):
         # ]
 
 
-class LeitorCSV(LeitorExtrato):
+class FormatoCSV(FormatoExtrato):
 
     def __init__(
         self,
@@ -43,7 +43,7 @@ class LeitorCSV(LeitorExtrato):
         self._coluna_data = coluna_data
         self._coluna_valor = coluna_valor
 
-    def ler_extrato(self) -> list[Extrato]:
+    def ler_extrato(self) -> None:
         print(
             f"Lendo CSV '{self._caminho_arquivo}' usando delimitador '{self._delimitador}' "
             f"e colunas [{self._coluna_data}, {self._coluna_valor}]"
@@ -54,13 +54,13 @@ class LeitorCSV(LeitorExtrato):
         #     Extrato(date.today(), "Transferência Recebida (CSV)", 500.00),
         # ]
 
-class LeitorJSON(LeitorExtrato):
+class FormatoJSON(FormatoExtrato):
 
     def __init__(self, caminho_arquivo: str, chave_raiz: str = "transacoes") -> None:
         super().__init__(caminho_arquivo)
         self._chave_raiz = chave_raiz
 
-    def ler_transacoes(self) -> list[Extrato]:
+    def ler_extrato(self) -> None:
         print(f"Lendo JSON '{self._caminho_arquivo}' acessando a chave '{self._chave_raiz}'")
         # IMPLEMENTAR LER EXTRATO MAIS TARDE
         # return [
