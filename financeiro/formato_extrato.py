@@ -1,5 +1,13 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from financeiro.extrato import Extrato
+from financeiro.fechamento import Fechamento
+
+@dataclass
+class ExtratoBrutoDTO:
+    data_inicio: str
+    data_fim: str
+    transacoes: list[dict]
 
 
 class FormatoExtrato(ABC):
@@ -10,7 +18,8 @@ class FormatoExtrato(ABC):
     ) -> None:
         self._caminho_arquivo = caminho_arquivo
 
-    def ler_extrato(self) -> None:
+    @abstractmethod
+    def ler_extrato(self) -> Extrato:
         pass
 
 
@@ -20,13 +29,15 @@ class FormatoOFX(FormatoExtrato):
         super().__init__(caminho_arquivo)
         self._fitid_validacao = fitid_validacao
 
-    def ler_extrato(self) -> None:
-        print(f"Lendo e parseando tags OFX de: {self._caminho_arquivo}, {'com' if self._fitid_validacao else 'sem'} validação de FITID")
-        # IMPLEMENTAR LER EXTRATO MAIS TARDE
-        # return [
-        #     Extrato(date.today(), "Supermercado (OFX)", -150.00),
-        #     Extrato(date.today(), "Transferência Recebida (OFX)", 500.00),
-        # ]
+    def ler_extrato(self) -> Extrato:
+        print(
+            f"Lendo e parseando tags OFX de: {self._caminho_arquivo}, {'com' if self._fitid_validacao else 'sem'} validação de FITID"
+        )
+        return ExtratoBrutoDTO(
+            data_inicio="2026-01-01",
+            data_fim="2026-01-31",
+            transacoes=[{"Receitas": 1200, "Despesas": -700}],
+        )
 
 
 class FormatoCSV(FormatoExtrato):
@@ -43,16 +54,17 @@ class FormatoCSV(FormatoExtrato):
         self._coluna_data = coluna_data
         self._coluna_valor = coluna_valor
 
-    def ler_extrato(self) -> None:
+    def ler_extrato(self) -> Extrato:
         print(
             f"Lendo CSV '{self._caminho_arquivo}' usando delimitador '{self._delimitador}' "
             f"e colunas [{self._coluna_data}, {self._coluna_valor}]"
         )
-        # IMPLEMENTAR LER EXTRATO MAIS TARDE
-        # return [
-        #     Extrato(date.today(), "Supermercado (CSV)", -150.00),
-        #     Extrato(date.today(), "Transferência Recebida (CSV)", 500.00),
-        # ]
+        return ExtratoBrutoDTO(
+            data_inicio="2026-01-01",
+            data_fim="2026-01-31",
+            transacoes=[{"Receitas": 1200, "Despesas": -700}],
+        )
+
 
 class FormatoJSON(FormatoExtrato):
 
@@ -60,9 +72,12 @@ class FormatoJSON(FormatoExtrato):
         super().__init__(caminho_arquivo)
         self._chave_raiz = chave_raiz
 
-    def ler_extrato(self) -> None:
-        print(f"Lendo JSON '{self._caminho_arquivo}' acessando a chave '{self._chave_raiz}'")
-        # IMPLEMENTAR LER EXTRATO MAIS TARDE
-        # return [
-        #     Extrato(date.today(), "Academia (JSON)", -120.00),
-        # ]
+    def ler_extrato(self) -> Extrato:
+        print(
+            f"Lendo JSON '{self._caminho_arquivo}' acessando a chave '{self._chave_raiz}'"
+        )
+        return ExtratoBrutoDTO(
+            data_inicio="2026-01-01",
+            data_fim="2026-01-31",
+            transacoes=[{"Receitas": 1200, "Despesas": -700}],
+        )
