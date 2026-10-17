@@ -97,18 +97,18 @@ if __name__ == "__main__":
         conciliacoes=[conciliacao_nov],
     )
 
-    print("=" * 45)
+    print("=" * 46)
     print(
-        f"       EXTRATO CONSOLIDADO ({extrato_novembro.data_inicio} até {extrato_novembro.data_fim})"
+        f"EXTRATO CONSOLIDADO ({extrato_novembro.data_inicio} até {extrato_novembro.data_fim})"
     )
-    print("=" * 45)
+    print("=" * 46)
     print(f"Fechamentos inclusos : {len(extrato_novembro.fechamentos_filtrados)}")
     print(f"Total de lançamentos : {extrato_novembro.total_lancamentos}")
     print(f"Total de Créditos    : R$ {extrato_novembro.total_receitas:.2f}")
     print(f"Total de Débitos     : R$ {extrato_novembro.total_despesas:.2f}")
-    print("-" * 45)
+    print("-" * 46)
     print(f"Saldo Consolidado    : R$ {extrato_novembro.saldo_final:.2f}")
     print(
         f"Conciliação Pendente : {'Sim' if extrato_novembro.possui_conciliacao_pendente() else 'Não'}"
     )
-    print("=" * 45)
+    print("=" * 46)
