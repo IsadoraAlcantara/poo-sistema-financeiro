@@ -8,13 +8,15 @@ from financeiro.despesa import Despesa
 from financeiro.fechamento import Fechamento
 from financeiro.leitor import Leitor
 from financeiro.opcoes_formato_extrato import OpcoesFormatoExtrato
+from financeiro.criador_importador import CriadorImportador, OpcoesBanco
+from financeiro.extrato import Extrato
 
 
 class Conta:
-    def __init__(self) -> None:
+    def __init__(self, leitor: Leitor | None = None) -> None:
         self.lancamentos: list[Lancamento] = []
         self._saldo = 0
-        self._leitor = Leitor()
+        self._leitor = leitor or Leitor()
 
     def adicionar_lancamento(self, novo_lancamento: Lancamento) -> None:
         self.lancamentos.append(novo_lancamento)
@@ -51,9 +53,16 @@ class Conta:
         self.lancamentos = []
         return fechamento
 
-    def importar_arquivo(self, caminho_arquivo: str, formato: OpcoesFormatoExtrato = OpcoesFormatoExtrato.OFX, **dados) -> None:
-        self._importacao = self._leitor.ler(caminho_arquivo, formato, **dados)
-        return self._importacao.ler_extrato()
+
+    def importar_arquivo(self, caminho_arquivo: str, banco: OpcoesBanco) -> Extrato:
+        importador = CriadorImportador().criar(banco=banco)
+        extrato = importador.importar(caminho_arquivo)
+
+        for fechamento in extrato.fechamentos_filtrados:
+            for lancamento in fechamento.lancamentos:
+                self.adicionar_lancamento(lancamento)
+
+        return extrato
 
 
 if __name__ == "__main__":
@@ -79,9 +88,7 @@ if __name__ == "__main__":
     listaLancamentos = conta.listar_lancamento_por_categoria(cat_alimentacao)
 
     for l in listaLancamentos:
-        print(
-            f"Categoria: {l.categoria.nome}, Valor: {l.valor}, Data: {l.data}"
-        )
+        print(f"Categoria: {l.categoria.nome}, Valor: {l.valor}, Data: {l.data}")
 
     print(f"Saldo: {conta.saldo}")
     print(
@@ -93,5 +100,12 @@ if __name__ == "__main__":
 
     print(f"Receitas: R$ {fechamento_agosto.total_receitas}")
     print(f"Despesas: R$ {fechamento_agosto.total_despesas}")
-    print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado}")
-    print(f"{conta.importar_arquivo('caminho/para/arquivo.ofx', OpcoesFormatoExtrato.OFX)}")
+    print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado} /n/n")
+
+    conta2 = Conta()
+    extrato = conta2.importar_arquivo("extrato_outubro.csv", banco=OpcoesBanco.INTER)
+
+    print(f"Lançamentos na conta após importação: {len(conta2.lancamentos)}")
+    # print(
+    #     f"{conta.importar_arquivo(caminho_arquivo='caminho/para/arquivo.ofx', banco=OpcoesBanco.INTER)}"
+    # )

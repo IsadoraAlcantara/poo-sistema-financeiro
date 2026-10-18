@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from financeiro.extrato import Extrato
-from financeiro.fechamento import Fechamento
 
 @dataclass
 class ExtratoBrutoDTO:
@@ -19,7 +17,7 @@ class FormatoExtrato(ABC):
         self._caminho_arquivo = caminho_arquivo
 
     @abstractmethod
-    def ler_extrato(self) -> Extrato:
+    def ler_extrato(self) -> ExtratoBrutoDTO:
         pass
 
 
@@ -29,7 +27,7 @@ class FormatoOFX(FormatoExtrato):
         super().__init__(caminho_arquivo)
         self._fitid_validacao = fitid_validacao
 
-    def ler_extrato(self) -> Extrato:
+    def ler_extrato(self) -> ExtratoBrutoDTO:
         print(
             f"Lendo e parseando tags OFX de: {self._caminho_arquivo}, {'com' if self._fitid_validacao else 'sem'} validação de FITID"
         )
@@ -54,7 +52,7 @@ class FormatoCSV(FormatoExtrato):
         self._coluna_data = coluna_data
         self._coluna_valor = coluna_valor
 
-    def ler_extrato(self) -> Extrato:
+    def ler_extrato(self) -> ExtratoBrutoDTO:
         print(
             f"Lendo CSV '{self._caminho_arquivo}' usando delimitador '{self._delimitador}' "
             f"e colunas [{self._coluna_data}, {self._coluna_valor}]"
@@ -72,7 +70,7 @@ class FormatoJSON(FormatoExtrato):
         super().__init__(caminho_arquivo)
         self._chave_raiz = chave_raiz
 
-    def ler_extrato(self) -> Extrato:
+    def ler_extrato(self) -> ExtratoBrutoDTO:
         print(
             f"Lendo JSON '{self._caminho_arquivo}' acessando a chave '{self._chave_raiz}'"
         )
