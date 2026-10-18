@@ -6,17 +6,16 @@ from financeiro.categoria_despesa import (
 )
 from financeiro.despesa import Despesa
 from financeiro.fechamento import Fechamento
-from financeiro.leitor import Leitor
+from financeiro.ServicoImportacao.leitor import Leitor
 from financeiro.opcoes_formato_extrato import OpcoesFormatoExtrato
-from financeiro.criador_importador import CriadorImportador, OpcoesBanco
+from financeiro.ServicoImportacao.criador_importador import CriadorImportador, OpcoesBanco
 from financeiro.extrato import Extrato
 
 
 class Conta:
-    def __init__(self, leitor: Leitor | None = None) -> None:
+    def __init__(self) -> None:
         self.lancamentos: list[Lancamento] = []
         self._saldo = 0
-        self._leitor = leitor or Leitor()
 
     def adicionar_lancamento(self, novo_lancamento: Lancamento) -> None:
         self.lancamentos.append(novo_lancamento)

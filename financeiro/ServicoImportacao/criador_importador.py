@@ -1,5 +1,9 @@
 from enum import Enum
-from financeiro.importador_banco import ImportadorBanco, ImportadorBancoInter, ImportadorBancoItau
+from financeiro.ServicoImportacao.importador_banco import (
+    ImportadorBanco,
+    ImportadorBancoInter,
+    ImportadorBancoItau,
+)
 
 
 class OpcoesBanco(Enum):
@@ -15,4 +19,3 @@ class CriadorImportador:
         if banco == OpcoesBanco.ITAU:
             return ImportadorBancoItau()
         raise ValueError(f"Banco desconhecido: {banco}")
-        

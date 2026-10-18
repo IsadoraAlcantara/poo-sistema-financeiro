@@ -1,10 +1,10 @@
-from financeiro.formato_extrato import (
+from financeiro.ServicoImportacao.formato_extrato import (
     FormatoCSV,
     FormatoJSON,
     FormatoOFX,
 )
 from financeiro.opcoes_formato_extrato import OpcoesFormatoExtrato
-from financeiro.formato_extrato import ExtratoBrutoDTO
+from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
 
 
 class Leitor:
