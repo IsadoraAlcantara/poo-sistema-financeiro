@@ -1,11 +1,17 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+@dataclass
+class TransacaoDTO:
+    data: str
+    descricao: str
+    valor: float
 
 @dataclass
 class ExtratoBrutoDTO:
     data_inicio: str
     data_fim: str
-    transacoes: list[dict]
+    transacoes: list[TransacaoDTO]
 
 
 class FormatoExtrato(ABC):

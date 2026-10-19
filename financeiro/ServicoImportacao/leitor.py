@@ -3,7 +3,7 @@ from financeiro.ServicoImportacao.formato_extrato import (
     FormatoJSON,
     FormatoOFX,
 )
-from financeiro.opcoes_formato_extrato import OpcoesFormatoExtrato
+from financeiro.ServicoImportacao.opcoes_formato_extrato import OpcoesFormatoExtrato
 from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
 
 
