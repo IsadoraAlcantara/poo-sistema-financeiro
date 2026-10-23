@@ -1,17 +1,17 @@
 from financeiro.fechamento import Fechamento
 from financeiro.despesa import Despesa
 from financeiro.receita import Receita
-from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
+from financeiro.categoria_despesa import CategoriaDespesa
+from financeiro.categoria_receita import CategoriaReceita 
 from financeiro.conta import Conta
 
 
 class TestFechamento:
 
     def setup_method(self):
-        self.cat_salario = CategoriaReceita(NomeCategoriaReceita.SALARIO)
-        self.cat_transporte = CategoriaDespesa(NomeCategoriaDespesa.TRANSPORTE, 1000)
-        self.cat_alimentacao = CategoriaDespesa(NomeCategoriaDespesa.ALIMENTACAO, 1000)
+        self.cat_salario = CategoriaReceita("SALARIO")
+        self.cat_transporte = CategoriaDespesa("TRANSPORTE", 1000)
+        self.cat_alimentacao = CategoriaDespesa("ALIMENTACAO", 1000)
 
         self.d1 = Despesa(self.cat_alimentacao, 300, "2026-08-20")
         self.d2 = Despesa(self.cat_transporte, 700, "2026-08-20")

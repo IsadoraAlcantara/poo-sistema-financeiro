@@ -3,7 +3,7 @@ from financeiro.categoria import Categoria
 
 class Lancamento:
 
-    def __init__(self, categoria: Categoria | None, valor: int, data: str) -> None:
+    def __init__(self, categoria: Categoria, valor: int, data: str) -> None:
         self.categoria = categoria
         self.valor = valor
         self.data = data

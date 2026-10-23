@@ -1,14 +1,14 @@
 from financeiro.despesa import Despesa
-from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
+from financeiro.categoria_despesa import CategoriaDespesa
+from financeiro.categoria_receita import CategoriaReceita
 
 class TestDespesa:
 
 
     def setup_method(self) -> None:
-        self.cat_alimentacao = CategoriaDespesa(nome=NomeCategoriaDespesa.ALIMENTACAO, gasto_max=500)
-        self.cat_transporte = CategoriaDespesa(nome=NomeCategoriaDespesa.TRANSPORTE, gasto_max=500)
-        self.cat_salario = CategoriaReceita(nome=NomeCategoriaReceita.SALARIO)
+        self.cat_alimentacao = CategoriaDespesa(nome="ALIMENTACAO", gasto_max=500)
+        self.cat_transporte = CategoriaDespesa(nome="TRANSPORTE", gasto_max=500)
+        self.cat_salario = CategoriaReceita(nome="SALARIO")
 
     def test_cria_despesa(self):
         d1 = Despesa(self.cat_alimentacao, 300, "2026-08-20")

@@ -2,15 +2,15 @@ from financeiro.fechamento import Fechamento
 from financeiro.extrato import Extrato
 from financeiro.despesa import Despesa
 from financeiro.receita import Receita
-from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
+from financeiro.categoria_despesa import CategoriaDespesa
+from financeiro.categoria_receita import CategoriaReceita
 
 
 class TestExtrato:
 
     def setup_method(self) -> None:
-        self.cat_alimentacao = CategoriaDespesa(NomeCategoriaDespesa.ALIMENTACAO, 1000)
-        self.cat_salario = CategoriaReceita(NomeCategoriaReceita.SALARIO)
+        self.cat_alimentacao = CategoriaDespesa("ALIMENTACAO", 1000)
+        self.cat_salario = CategoriaReceita("SALARIO")
 
         julho = [Despesa(self.cat_alimentacao, 200, "2026-07-01")]
         self.fechamento_julho = Fechamento("2026-07-31", julho)

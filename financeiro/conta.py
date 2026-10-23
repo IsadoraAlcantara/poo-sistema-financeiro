@@ -1,7 +1,6 @@
 from financeiro.lancamento import Lancamento
 from financeiro.categoria_despesa import (
     CategoriaDespesa,
-    NomeCategoriaDespesa,
     Categoria,
 )
 from financeiro.despesa import Despesa
@@ -66,14 +65,14 @@ class Conta:
 
 if __name__ == "__main__":
     from financeiro.despesa import Despesa
-    from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
+    from financeiro.categoria_despesa import CategoriaDespesa
     from financeiro.receita import Receita
-    from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
+    from financeiro.categoria_receita import CategoriaReceita
 
     cat_alimentacao = CategoriaDespesa(
-        nome=NomeCategoriaDespesa.ALIMENTACAO, gasto_max=500
+        nome="ALIMENTACAO", gasto_max=500
     )
-    cat_salario = CategoriaReceita(nome=NomeCategoriaReceita.SALARIO)
+    cat_salario = CategoriaReceita(nome="SALARIO")
 
     despesa1 = Despesa(cat_alimentacao, 300, "2026-08-20")
     despesa2 = Despesa(cat_alimentacao, 400, "2026-08-20")
@@ -99,7 +98,7 @@ if __name__ == "__main__":
 
     print(f"Receitas: R$ {fechamento_agosto.total_receitas}")
     print(f"Despesas: R$ {fechamento_agosto.total_despesas}")
-    print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado} /n/n")
+    print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado}")
 
     conta2 = Conta()
     extrato = conta2.importar_arquivo("extrato_outubro.csv", banco=OpcoesBanco.INTER)

@@ -1,15 +1,9 @@
 from financeiro.categoria import Categoria
 
 
-class NomeCategoriaReceita:
-    SALARIO = "salario"
-    INVESTIMENTOS = "investimentos"
-    FREELANCER = "freelancer"
-
-
 class CategoriaReceita(Categoria):
 
-    def __init__(self, nome: NomeCategoriaReceita) -> None:
+    def __init__(self, nome: str) -> None:
         super().__init__(nome)
 
     def possui_limite(self) -> bool:

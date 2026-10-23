@@ -1,20 +1,20 @@
 from financeiro.conta import Conta
-from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
-from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
+from financeiro.categoria_despesa import CategoriaDespesa
+from financeiro.categoria_receita import CategoriaReceita
 from financeiro.despesa import Despesa
-from financeiro.receita import Receita
+# from financeiro.receita import Receita
 
 
 class TestConta:
 
     def setup_method(self) -> None:
         self.cat_alimentacao = CategoriaDespesa(
-            nome=NomeCategoriaDespesa.ALIMENTACAO, gasto_max=500
+            nome="ALIMENTACAO", gasto_max=500
         )
         self.cat_internet = CategoriaDespesa(
-            nome=NomeCategoriaDespesa.INTERNET, gasto_max=500
+            nome="INTERNET", gasto_max=500
         )
-        self.cat_salario = CategoriaReceita(nome=NomeCategoriaReceita.SALARIO)
+        self.cat_salario = CategoriaReceita(nome="SALARIO")
         self.conta = Conta()
 
     def test_conta_inicial_vazia(self) -> None:

@@ -1,14 +1,14 @@
 from financeiro.conta import Conta
 from financeiro.despesa import Despesa
-from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
+from financeiro.categoria_despesa import CategoriaDespesa
 from financeiro.conciliacao import Conciliacao
 
 
 class TestConciliacaoBancaria:
 
     def setup_method(self) -> None:
-        self.cat_alimentacao = CategoriaDespesa(NomeCategoriaDespesa.ALIMENTACAO, 1000)
-        self.cat_transporte = CategoriaDespesa(NomeCategoriaDespesa.TRANSPORTE, 500)
+        self.cat_alimentacao = CategoriaDespesa("ALIMENTACAO", 1000)
+        self.cat_transporte = CategoriaDespesa("TRANSPORTE", 500)
 
     def test_conciliacao_correta(self):
         aplicacao = Conta()

@@ -1,19 +1,9 @@
 from financeiro.categoria import Categoria
 
 
-class NomeCategoriaDespesa:
-    ALIMENTACAO = "alimentacao"
-    TRANSPORTE = "transporte"
-    LAZER = "lazer"
-    AGUA = "agua"
-    LUZ = "luz"
-    INTERNET = "internet"
-    ALUGUEL = "aluguel"
-
-
 class CategoriaDespesa(Categoria):
 
-    def __init__(self, nome: NomeCategoriaDespesa, gasto_max: int) -> None:
+    def __init__(self, nome: str, gasto_max: int) -> None:
         super().__init__(nome)
         if gasto_max <= 0:
             raise ValueError("O gasto máximo de uma categoria deve ser maior que zero")
@@ -35,7 +25,7 @@ class CategoriaDespesa(Categoria):
 
 
 if __name__ == "__main__":
-    cat_lazer = CategoriaDespesa(nome=NomeCategoriaDespesa.LAZER, gasto_max=200)
+    cat_lazer = CategoriaDespesa(nome="lazer", gasto_max=200)
     print(f"Categoria: {cat_lazer.nome}, gasto max: {cat_lazer.gasto_max}")
 
     cat_lazer.alterar_gasto_max(500)
