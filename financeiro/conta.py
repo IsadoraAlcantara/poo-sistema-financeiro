@@ -5,8 +5,7 @@ from financeiro.categoria_despesa import (
 )
 from financeiro.despesa import Despesa
 from financeiro.fechamento import Fechamento
-from financeiro.ServicoImportacao.leitor import Leitor
-from financeiro.ServicoImportacao.opcoes_formato_extrato import OpcoesFormatoExtrato
+from financeiro.ServicoImportacao.leitor import Leitor, OpcoesFormatoExtrato
 from financeiro.ServicoImportacao.criador_importador import CriadorImportador, OpcoesBanco
 from financeiro.extrato import Extrato
 

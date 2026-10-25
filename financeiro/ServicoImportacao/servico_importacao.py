@@ -28,7 +28,6 @@ class ServicoImportacao:
     def _converter_e_adicionar_na_conta(
         self, dto: ExtratoBrutoDTO, conta: Conta
     ) -> None:
-        """Converte cada TransacaoDTO em Receita ou Despesa."""
         cat_receita_padrao = CategoriaReceita(nome="Receita")
         cat_despesa_padrao = CategoriaDespesa(nome="Despesa", gasto_max=5000)
 

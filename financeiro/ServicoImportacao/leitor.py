@@ -1,10 +1,17 @@
+from enum import Enum
 from financeiro.ServicoImportacao.formato_extrato import (
     FormatoCSV,
     FormatoJSON,
     FormatoOFX,
 )
-from financeiro.ServicoImportacao.opcoes_formato_extrato import OpcoesFormatoExtrato
 from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
+
+
+class OpcoesFormatoExtrato(Enum):
+    OFX = "ofx"
+    CSV = "csv"
+    JSON = "json"
+
 
 
 class Leitor:
