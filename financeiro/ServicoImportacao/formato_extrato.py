@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
+
 @dataclass
 class TransacaoDTO:
+    categoria: str
     data: str
-    descricao: str
     valor: float
+
 
 @dataclass
 class ExtratoBrutoDTO:
@@ -37,10 +39,18 @@ class FormatoOFX(FormatoExtrato):
         print(
             f"Lendo e parseando tags OFX de: {self._caminho_arquivo}, {'com' if self._fitid_validacao else 'sem'} validação de FITID"
         )
+
         return ExtratoBrutoDTO(
-            data_inicio="2026-01-01",
-            data_fim="2026-01-31",
-            transacoes=[{"Receitas": 1200, "Despesas": -700}],
+            data_inicio="2026-10-01",
+            data_fim="2026-10-31",
+            transacoes=[
+                TransacaoDTO(
+                    categoria="PIX Recebido", data="2026-10-01", valor=5000.00
+                ),
+                TransacaoDTO(
+                    categoria="Supermercado", data="2026-10-05", valor=-450.30
+                ),
+            ],
         )
 
 
@@ -64,9 +74,16 @@ class FormatoCSV(FormatoExtrato):
             f"e colunas [{self._coluna_data}, {self._coluna_valor}]"
         )
         return ExtratoBrutoDTO(
-            data_inicio="2026-01-01",
-            data_fim="2026-01-31",
-            transacoes=[{"Receitas": 1200, "Despesas": -700}],
+            data_inicio="2026-10-01",
+            data_fim="2026-10-31",
+            transacoes=[
+                TransacaoDTO(
+                    categoria="PIX Recebido", data="2026-10-01", valor=5000.00
+                ),
+                TransacaoDTO(
+                    categoria="Supermercado", data="2026-10-05", valor=-450.30
+                ),
+            ],
         )
 
 
@@ -81,7 +98,14 @@ class FormatoJSON(FormatoExtrato):
             f"Lendo JSON '{self._caminho_arquivo}' acessando a chave '{self._chave_raiz}'"
         )
         return ExtratoBrutoDTO(
-            data_inicio="2026-01-01",
-            data_fim="2026-01-31",
-            transacoes=[{"Receitas": 1200, "Despesas": -700}],
+            data_inicio="2026-10-01",
+            data_fim="2026-10-31",
+            transacoes=[
+                TransacaoDTO(
+                    categoria="PIX Recebido", data="2026-10-01", valor=5000.00
+                ),
+                TransacaoDTO(
+                    categoria="Supermercado", data="2026-10-05", valor=-450.30
+                ),
+            ],
         )

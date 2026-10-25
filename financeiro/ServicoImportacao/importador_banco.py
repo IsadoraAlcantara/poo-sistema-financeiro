@@ -6,26 +6,33 @@ from financeiro.ServicoImportacao.opcoes_formato_extrato import OpcoesFormatoExt
 
 class ImportadorBanco(ABC):
 
-    def __init__(self, leitor: Leitor | None = None) -> None:
-        self.leitor = leitor or Leitor()
+    def __init__(self, leitor: Leitor) -> None:
+        self.leitor = leitor
 
     @abstractmethod
+    def importar_dto(self, caminho_arquivo: str) -> ExtratoBrutoDTO:
+        pass
+
     def importar(self, caminho_arquivo: str) -> Extrato:
+        dto = self.importar_dto(caminho_arquivo)
+        return self._converter_dto_para_extrato(dto)
+
+    # VER SE NAO PODE SER UM MÉTODO CONCRETO - SE SIM, NAO HA NECESSIDADE DE IMPLEMENTAR NAS CLASSES FILHAS
+    @abstractmethod
+    def _converter_dto_para_extrato(self, dto: ExtratoBrutoDTO) -> Extrato:
         pass
 
 
 class ImportadorBancoInter(ImportadorBanco):
 
-    def importar(self, caminho_arquivo: str) -> Extrato:
-        dto = self.leitor.ler(
+    def importar_dto(self, caminho_arquivo: str) -> ExtratoBrutoDTO:
+        return self.leitor.ler(
             caminho_arquivo,
             formato=OpcoesFormatoExtrato.CSV,
             delimitador=";",
             coluna_data="data",
-            coluna_valor="montante"
+            coluna_valor="montante",
         )
-
-        return self._converter_dto_para_extrato(dto)
 
     def _converter_dto_para_extrato(self, dto: ExtratoBrutoDTO) -> Extrato:
         return Extrato(
@@ -36,14 +43,14 @@ class ImportadorBancoInter(ImportadorBanco):
 
 
 class ImportadorBancoItau(ImportadorBanco):
-    
-    def importar(self, caminho_arquivo: str) -> Extrato:
-        dto = self.leitor.ler(
+
+    def importar_dto(self, caminho_arquivo: str) -> ExtratoBrutoDTO:
+        return self.leitor.ler(
             caminho_arquivo,
             formato=OpcoesFormatoExtrato.OFX,
-            fitid_validacao=True
+            fitid_validacao=True,
         )
-        return self._converter_dto_para_extrato(dto)
+
 
     def _converter_dto_para_extrato(self, dto: ExtratoBrutoDTO) -> Extrato:
         return Extrato(

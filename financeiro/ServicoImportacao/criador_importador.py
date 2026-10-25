@@ -4,6 +4,7 @@ from financeiro.ServicoImportacao.importador_banco import (
     ImportadorBancoInter,
     ImportadorBancoItau,
 )
+from financeiro.ServicoImportacao.leitor import Leitor
 
 
 class OpcoesBanco(Enum):
@@ -13,9 +14,12 @@ class OpcoesBanco(Enum):
 
 class CriadorImportador:
 
+    def __init__(self, leitor: Leitor) -> None:
+        self._leitor = leitor
+
     def criar(self, banco: OpcoesBanco) -> ImportadorBanco:
         if banco == OpcoesBanco.INTER:
-            return ImportadorBancoInter()
+            return ImportadorBancoInter(leitor=self._leitor)
         if banco == OpcoesBanco.ITAU:
-            return ImportadorBancoItau()
+            return ImportadorBancoItau(leitor=self._leitor)
         raise ValueError(f"Banco desconhecido: {banco}")

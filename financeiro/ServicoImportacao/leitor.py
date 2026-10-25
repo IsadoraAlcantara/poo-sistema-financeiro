@@ -8,7 +8,9 @@ from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
 
 
 class Leitor:
-    def ler(self, caminho_arquivo: str, formato: OpcoesFormatoExtrato, **dados) -> ExtratoBrutoDTO:
+    def ler(
+        self, caminho_arquivo: str, formato: OpcoesFormatoExtrato, **dados
+    ) -> ExtratoBrutoDTO:
         if formato == OpcoesFormatoExtrato.OFX:
             parser = FormatoOFX(
                 caminho_arquivo,

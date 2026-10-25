@@ -51,12 +51,12 @@ if __name__ == "__main__":
     from financeiro.receita import Receita
     from financeiro.despesa import Despesa
     from financeiro.conta import Conta
-    from financeiro.categoria_despesa import CategoriaDespesa, NomeCategoriaDespesa
-    from financeiro.categoria_receita import CategoriaReceita, NomeCategoriaReceita
+    from financeiro.categoria_despesa import CategoriaDespesa
+    from financeiro.categoria_receita import CategoriaReceita
     from financeiro.conciliacao import Conciliacao
 
-    cat_salario = CategoriaReceita(NomeCategoriaReceita.SALARIO)
-    cat_alimentacao = CategoriaDespesa(NomeCategoriaDespesa.ALIMENTACAO, 1000)
+    cat_salario = CategoriaReceita("SALARIO")
+    cat_alimentacao = CategoriaDespesa("ALIMENTACAO", 1000)
 
     # Agosto
     d1 = Despesa(cat_alimentacao, 300, "2026-08-20")
