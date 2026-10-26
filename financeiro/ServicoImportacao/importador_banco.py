@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from financeiro.extrato import Extrato
 from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
 from financeiro.ServicoImportacao.leitor import Leitor, OpcoesFormatoExtrato
+from financeiro.fechamento import Fechamento
 
 class ImportadorBanco(ABC):
 
@@ -14,12 +15,15 @@ class ImportadorBanco(ABC):
 
     def importar(self, caminho_arquivo: str) -> Extrato:
         dto = self.importar_dto(caminho_arquivo)
-        return self._converter_dto_para_extrato(dto)
+        return self._converter_dto_para_extrato(dto=dto)
 
-    # VER SE NAO PODE SER UM MÉTODO CONCRETO - SE SIM, NAO HA NECESSIDADE DE IMPLEMENTAR NAS CLASSES FILHAS
-    @abstractmethod
     def _converter_dto_para_extrato(self, dto: ExtratoBrutoDTO) -> Extrato:
-        pass
+        fechamento_inicial = Fechamento(lancamentos=dto.transacoes, data_fechamento=dto.data_fim)
+        return Extrato(
+            data_inicio=dto.data_inicio,
+            data_fim=dto.data_fim,
+            fechamentos_totais=[fechamento_inicial],
+        )
 
 
 class ImportadorBancoInter(ImportadorBanco):
@@ -33,13 +37,6 @@ class ImportadorBancoInter(ImportadorBanco):
             coluna_valor="montante",
         )
 
-    def _converter_dto_para_extrato(self, dto: ExtratoBrutoDTO) -> Extrato:
-        return Extrato(
-            data_inicio=dto.data_inicio,
-            data_fim=dto.data_fim,
-            fechamentos_totais=[],
-        )
-
 
 class ImportadorBancoItau(ImportadorBanco):
 
@@ -48,12 +45,4 @@ class ImportadorBancoItau(ImportadorBanco):
             caminho_arquivo,
             formato=OpcoesFormatoExtrato.OFX,
             fitid_validacao=True,
-        )
-
-
-    def _converter_dto_para_extrato(self, dto: ExtratoBrutoDTO) -> Extrato:
-        return Extrato(
-            data_inicio=dto.data_inicio,
-            data_fim=dto.data_fim,
-            fechamentos_totais=[],
         )

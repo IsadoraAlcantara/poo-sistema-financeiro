@@ -48,7 +48,7 @@ class FormatoOFX(FormatoExtrato):
                     categoria="PIX Recebido", data="2026-10-01", valor=5000.00
                 ),
                 TransacaoDTO(
-                    categoria="Supermercado", data="2026-10-05", valor=-450.30
+                    categoria="Supermercado", data="2026-10-05", valor=-450.00
                 ),
             ],
         )
@@ -81,7 +81,7 @@ class FormatoCSV(FormatoExtrato):
                     categoria="PIX Recebido", data="2026-10-01", valor=5000.00
                 ),
                 TransacaoDTO(
-                    categoria="Supermercado", data="2026-10-05", valor=-450.30
+                    categoria="Supermercado", data="2026-10-05", valor=-450.00
                 ),
             ],
         )
@@ -105,7 +105,7 @@ class FormatoJSON(FormatoExtrato):
                     categoria="PIX Recebido", data="2026-10-01", valor=5000.00
                 ),
                 TransacaoDTO(
-                    categoria="Supermercado", data="2026-10-05", valor=-450.30
+                    categoria="Supermercado", data="2026-10-05", valor=-450.00
                 ),
             ],
         )

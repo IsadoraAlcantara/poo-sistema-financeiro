@@ -4,7 +4,7 @@ from financeiro.ServicoImportacao.criador_importador import (
     CriadorImportador,
     OpcoesBanco,
 )
-from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
+from financeiro.extrato import Extrato
 from financeiro.receita import Receita
 from financeiro.despesa import Despesa
 from financeiro.categoria_receita import CategoriaReceita
@@ -18,34 +18,30 @@ class ServicoImportacao:
 
     def importar_para_conta(
         self, conta: Conta, caminho_arquivo: str, banco: OpcoesBanco
-    ) -> ExtratoBrutoDTO:
+    ) -> Extrato:
         importador = self._criador_importador.criar(banco=banco)
-        dto: ExtratoBrutoDTO = importador.importar_dto(caminho_arquivo)
-        self._converter_e_adicionar_na_conta(dto, conta)
+        extrato = importador.importar(caminho_arquivo=caminho_arquivo)
 
-        return dto
-
-    def _converter_e_adicionar_na_conta(
-        self, dto: ExtratoBrutoDTO, conta: Conta
-    ) -> None:
         cat_receita_padrao = CategoriaReceita(nome="Receita")
         cat_despesa_padrao = CategoriaDespesa(nome="Despesa", gasto_max=5000)
 
-        for transacao in dto.transacoes:
-            if transacao.valor >= 0:
-                lancamento = Receita(
-                    categoria=cat_receita_padrao,
-                    valor=transacao.valor,
-                    data=transacao.data,
-                )
-            else:
-                lancamento = Despesa(
-                    categoria=cat_despesa_padrao,
-                    valor=abs(transacao.valor),
-                    data=transacao.data,
-                )
+        for fechamentos in extrato.fechamentos_filtrados:
+            for transacao in fechamentos.lancamentos:
+                if transacao.valor >= 0:
+                    lancamento = Receita(
+                        categoria=cat_receita_padrao,
+                        valor=transacao.valor,
+                        data=transacao.data,
+                    )
+                else:
+                    lancamento = Despesa(
+                        categoria=cat_despesa_padrao,
+                        valor=abs(transacao.valor),
+                        data=transacao.data,
+                    )
+                conta.adicionar_lancamento(lancamento)
 
-            conta.adicionar_lancamento(lancamento)
+        return extrato
 
 
 if __name__ == "__main__":
@@ -54,17 +50,17 @@ if __name__ == "__main__":
     leitor = Leitor()
     criador_importador = CriadorImportador(leitor=leitor)
     servico_importacao = ServicoImportacao(criador_importador=criador_importador)
-    minha_conta = Conta()
+    conta = Conta()
 
     print("\n" + "=" * 50)
     print("ESTADO INICIAL DA CONTA")
     print("=" * 50)
-    print(f"Total de lançamentos processados : {len(minha_conta.lancamentos)}")
-    print(f"Saldo consolidado da conta       : R$ {minha_conta.saldo:.2f}")
+    print(f"Total de lançamentos processados : {len(conta.lancamentos)}")
+    print(f"Saldo consolidado da conta       : R$ {conta.saldo:.2f}")
     print("=" * 50 + "\n")
 
-    dto = servico_importacao.importar_para_conta(
-        conta=minha_conta,
+    extrato = servico_importacao.importar_para_conta(
+        conta=conta,
         caminho_arquivo="extrato_outubro.csv",
         banco=OpcoesBanco.INTER,
     )
@@ -72,17 +68,18 @@ if __name__ == "__main__":
     print("\n" + "=" * 50)
     print("TRANSAÇÕES BRUTAS (DTO)")
     print("=" * 50)
-    for t in dto.transacoes:
-        print(
-            f"Categoria: {t.categoria:<20} | Data: {t.data} | Valor: R$ {t.valor:.2f}"
-        )
+    for f in extrato.fechamentos_filtrados:
+        for t in f.lancamentos:
+            print(
+                f"Categoria: {t.categoria:<20} | Data: {t.data} | Valor: R$ {t.valor:.2f}"
+            )
 
     print("\n" + "=" * 50)
     print("ESTADO FINAL DA CONTA")
     print("=" * 50)
-    print(f"Total de lançamentos processados : {len(minha_conta.lancamentos)}")
-    print(f"Saldo consolidado da conta       : R$ {minha_conta.saldo:.2f}")
-    for lancamento in minha_conta.lancamentos:
+    print(f"Total de lançamentos processados : {len(conta.lancamentos)}")
+    print(f"Saldo consolidado da conta       : R$ {conta.saldo:.2f}")
+    for lancamento in conta.lancamentos:
         print(
             f"Categoria: {lancamento.categoria.nome:<20} | Data: {lancamento.data} | Valor: R$ {lancamento.valor:.2f}"
         )
