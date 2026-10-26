@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from financeiro.extrato import Extrato
-from financeiro.documento import Documento, DocumentoPDF, DocumentoCSV, DocumentoHTML
+from financeiro.ServicoImportacao.documento import Documento, DocumentoPDF, DocumentoCSV, DocumentoHTML
 
 
 class ExportadorExtrato(ABC):

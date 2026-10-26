@@ -9,6 +9,10 @@ from financeiro.receita import Receita
 from financeiro.despesa import Despesa
 from financeiro.categoria_receita import CategoriaReceita
 from financeiro.categoria_despesa import CategoriaDespesa
+from financeiro.ServicoImportacao.exportador_extrato import (
+    ExportadorExtrato,
+    ExportadorCSV,
+)
 
 
 class ServicoImportacao:
@@ -42,6 +46,11 @@ class ServicoImportacao:
                 conta.adicionar_lancamento(lancamento)
 
         return extrato
+
+    def exportar_extrato(
+        self, extrato: Extrato, nome_arquivo: str, exportador: ExportadorExtrato
+    ):
+        exportador.exportar(extrato=extrato, nome_arquivo=nome_arquivo)
 
 
 if __name__ == "__main__":
@@ -83,4 +92,14 @@ if __name__ == "__main__":
         print(
             f"Categoria: {lancamento.categoria.nome:<20} | Data: {lancamento.data} | Valor: R$ {lancamento.valor:.2f}"
         )
+    print("=" * 50)
+
+    print("\n" + "=" * 50)
+    print("EXPORTAÇÃO DO EXTRATO")
+    print("=" * 50)
+    print(
+        servico_importacao.exportar_extrato(
+            extrato=extrato, nome_arquivo="transacoes", exportador=ExportadorCSV()
+        )
+    )
     print("=" * 50)
