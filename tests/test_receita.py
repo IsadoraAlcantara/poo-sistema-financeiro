@@ -28,10 +28,3 @@ class TestReceita:
             assert False, "Deveria ter lançado exceção"
         except ValueError:
             pass
-
-    # def test_categoria_invalida(self):
-    #     try: 
-    #         Receita(self.cat_transporte, 300, "2026-08-20")
-    #         assert False, "Deveria ter lançado exceção"
-    #     except TypeError:
-    #         pass

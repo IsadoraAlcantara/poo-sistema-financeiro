@@ -48,12 +48,12 @@ class Extrato:
 
 
 if __name__ == "__main__":
-    from financeiro.receita import Receita
-    from financeiro.despesa import Despesa
-    from financeiro.conta import Conta
     from financeiro.categoria_despesa import CategoriaDespesa
     from financeiro.categoria_receita import CategoriaReceita
     from financeiro.conciliacao import Conciliacao
+    from financeiro.conta import Conta
+    from financeiro.despesa import Despesa
+    from financeiro.receita import Receita
 
     cat_salario = CategoriaReceita("SALARIO")
     cat_alimentacao = CategoriaDespesa("ALIMENTACAO", 1000)

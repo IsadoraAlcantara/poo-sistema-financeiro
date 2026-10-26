@@ -1,4 +1,5 @@
 from enum import Enum
+
 from financeiro.ServicoImportacao.importador_banco import (
     ImportadorBanco,
     ImportadorBancoInter,
@@ -13,7 +14,6 @@ class OpcoesBanco(Enum):
 
 
 class CriadorImportador:
-
     def __init__(self, leitor: Leitor) -> None:
         self._leitor = leitor
 

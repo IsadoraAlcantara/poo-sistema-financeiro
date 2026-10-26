@@ -1,10 +1,15 @@
 from abc import ABC, abstractmethod
+
 from financeiro.extrato import Extrato
-from financeiro.ServicoImportacao.documento import Documento, DocumentoPDF, DocumentoCSV, DocumentoHTML
+from financeiro.ServicoImportacao.documento import (
+    Documento,
+    DocumentoPDF,
+    DocumentoCSV,
+    DocumentoHTML,
+)
 
 
 class ExportadorExtrato(ABC):
-
     def exportar(self, extrato: Extrato, nome_arquivo: str) -> None:
         documento = self.criar_documento()
 
@@ -26,36 +31,34 @@ class ExportadorExtrato(ABC):
         documento.adicionar_rodape(rodape)
         documento.salvar(nome_arquivo)
 
+    @abstractmethod
     def criar_documento(self) -> Documento:
         pass
 
 
 class ExportadorPDF(ExportadorExtrato):
-
     def criar_documento(self) -> Documento:
         return DocumentoPDF()
 
 
 class ExportadorCSV(ExportadorExtrato):
-
     def criar_documento(self) -> Documento:
         return DocumentoCSV()
 
 
 class ExportadorHTML(ExportadorExtrato):
-
     def criar_documento(self) -> Documento:
         return DocumentoHTML()
 
 
 if __name__ == "__main__":
-    from financeiro.receita import Receita
-    from financeiro.despesa import Despesa
-    from financeiro.conta import Conta
     from financeiro.categoria_despesa import CategoriaDespesa
     from financeiro.categoria_receita import CategoriaReceita
     from financeiro.conciliacao import Conciliacao
+    from financeiro.conta import Conta
+    from financeiro.despesa import Despesa
     from financeiro.extrato import Extrato
+    from financeiro.receita import Receita
 
     cat_salario = CategoriaReceita(nome="SALARIO")
     cat_alimentacao = CategoriaDespesa(nome="ALIMENTACAO", gasto_max=1000)
