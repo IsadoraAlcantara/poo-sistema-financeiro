@@ -41,3 +41,44 @@ A aplicação guarda a estratégia como atributo, pois a estratégia é algo int
 
 **Resposta:**  
 As interfaces criadas para aplicações financeiras possuem a mesma estratégia, pois conceitualmente executam as mesmas funcionalidades.
+
+---
+
+### 6. Qual método foi selecionado?
+
+**Resposta:**  
+
+#### Leitor: Simple Factory
+
+Foi escolhido o método simple factory porque a única informação que diferencia um leitor do outro era o formato, não existindo uma hierarquia de classes criadoras, apenas um método central responsável por fabricar a estratégia de leitura correta. Dessa forma, podendo ser resolvido com ifs.
+
+#### Importador: Simple Factory
+
+Para escolher de qual banco um arquivo foi importado, foi utilizado simple factory, já que apenas um dado diferencia o banco de origem.
+
+#### Exportador: Factory Method
+
+Foi decidido a utilização de factory method, pois cada tipo de exportação possui uma família própria de documentos com comportamentos e estrutura de dados distintos.
+
+---
+
+### 7. Nos seus serviços, o que é injetado e o que ainda é criado internamente? Por quê?
+
+**Resposta:**  
+
+#### Injetado: 
+
+A classe ServicoImportacao recebe o CriadorImportador via Injeção de Dependência no construtor. Da mesma forma, o CriadorImportador recebe o Leitor, e o ImportadorBanco recebe a sua dependência de leitura. Essas dependências representam serviços com comportamento de negócio e infraestrutura. Injetá-los é fundamental para manter o baixo acoplamento, permitir a manutenção de código.
+
+#### Criado internamente:
+As classes Extrato, Fechamento, Receita, Despesa e ExtratoBrutoDTO são instanciados diretamente dentro do fluxo de execução. Esses objetos são entidades de domínio e não serviços. Eles representam o estado da aplicação. Tentar injetar entidades de domínio via construtor inflaria a arquitetura sem benefício prático.
+
+--
+
+### 8. Onde está sua raiz de composição?
+A raiz de composição se encontra no arquivo servico_importacao
+
+--
+
+### 9. Que colaborador você conseguiria substituir hoje sem editar nenhum serviço?
+É possível substituir o Leitor e o ExportadorExtrato, já que o ServicoImportacao e os importadores dependem apenas de interfaces abstratas. Caso sejam adicionadas novas classes a interface Leitor ou ExportadorExtrato, o ServicoImportacao funcionará sem necessidade de alterar código já testado.

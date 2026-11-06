@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
+
 from financeiro.extrato import Extrato
 from financeiro.ServicoImportacao.formato_extrato import ExtratoBrutoDTO
-from financeiro.ServicoImportacao.leitor import Leitor, OpcoesFormatoExtrato
 from financeiro.fechamento import Fechamento
+from financeiro.ServicoImportacao.leitor import Leitor, OpcoesFormatoExtrato
 
 class ImportadorBanco(ABC):
 

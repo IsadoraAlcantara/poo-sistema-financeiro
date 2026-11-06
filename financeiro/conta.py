@@ -1,13 +1,10 @@
-from financeiro.lancamento import Lancamento
 from financeiro.categoria_despesa import (
     CategoriaDespesa,
     Categoria,
 )
 from financeiro.despesa import Despesa
 from financeiro.fechamento import Fechamento
-from financeiro.ServicoImportacao.leitor import Leitor, OpcoesFormatoExtrato
-from financeiro.ServicoImportacao.criador_importador import CriadorImportador, OpcoesBanco
-from financeiro.extrato import Extrato
+from financeiro.lancamento import Lancamento
 
 
 class Conta:
@@ -51,26 +48,13 @@ class Conta:
         return fechamento
 
 
-    # def importar_arquivo(self, caminho_arquivo: str, banco: OpcoesBanco) -> Extrato:
-    #     importador = CriadorImportador().criar(banco=banco)
-    #     extrato = importador.importar(caminho_arquivo)
-
-    #     for fechamento in extrato.fechamentos_filtrados:
-    #         for lancamento in fechamento.lancamentos:
-    #             self.adicionar_lancamento(lancamento)
-
-    #     return extrato
-
-
 if __name__ == "__main__":
-    from financeiro.despesa import Despesa
     from financeiro.categoria_despesa import CategoriaDespesa
-    from financeiro.receita import Receita
     from financeiro.categoria_receita import CategoriaReceita
+    from financeiro.despesa import Despesa
+    from financeiro.receita import Receita
 
-    cat_alimentacao = CategoriaDespesa(
-        nome="ALIMENTACAO", gasto_max=500
-    )
+    cat_alimentacao = CategoriaDespesa(nome="ALIMENTACAO", gasto_max=500)
     cat_salario = CategoriaReceita(nome="SALARIO")
 
     despesa1 = Despesa(cat_alimentacao, 300, "2026-08-20")
@@ -98,11 +82,3 @@ if __name__ == "__main__":
     print(f"Receitas: R$ {fechamento_agosto.total_receitas}")
     print(f"Despesas: R$ {fechamento_agosto.total_despesas}")
     print(f"Saldo Final: R$ {fechamento_agosto.saldo_final_consolidado}")
-
-    # conta2 = Conta()
-    # extrato = conta2.importar_arquivo("extrato_outubro.csv", banco=OpcoesBanco.INTER)
-
-    # print(f"Lançamentos na conta após importação: {len(conta2.lancamentos)}")
-    # print(
-    #     f"{conta.importar_arquivo(caminho_arquivo='caminho/para/arquivo.ofx', banco=OpcoesBanco.INTER)}"
-    # )

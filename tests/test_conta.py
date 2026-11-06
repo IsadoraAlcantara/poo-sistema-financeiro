@@ -2,7 +2,6 @@ from financeiro.conta import Conta
 from financeiro.categoria_despesa import CategoriaDespesa
 from financeiro.categoria_receita import CategoriaReceita
 from financeiro.despesa import Despesa
-# from financeiro.receita import Receita
 
 
 class TestConta:
